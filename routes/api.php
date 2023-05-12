@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::controller(EnderecoController::class)->group(function () {
-    Route::put('/endereco/create', 'create');
+    Route::post('/endereco/create', 'create');
     Route::get('/endereco/read/{id}', 'read');
-    Route::post('/endereco/create/{id}', 'update');
+    Route::patch('/endereco/update/{id}', 'update');
     Route::delete('/endereco/delete/{id}', 'delete');
     Route::get('/endereco/buscar-via-cep', 'buscarViaCep');
 });
