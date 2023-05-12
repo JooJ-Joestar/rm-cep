@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EnderecoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::controller(EnderecoController::class)->group(function () {
+    Route::put('/endereco/create', 'create');
+    Route::get('/endereco/read/{id}', 'read');
+    Route::post('/endereco/create/{id}', 'update');
+    Route::delete('/endereco/delete/{id}', 'delete');
+    Route::get('/endereco/buscar-via-cep', 'buscarViaCep');
 });
