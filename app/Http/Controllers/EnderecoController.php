@@ -115,4 +115,23 @@ class EnderecoController extends Controller
             return response($e->getMessage(), 418);
         }
     }
+
+    /**
+     * Utiliza a biblioteca caneara/quest para a busca por qualquer coluna relevante.
+     */
+    public function buscarViaQualquerCoisa(Request $request) {
+        $str = $request->qualquerCoisa;
+        $res = Endereco::whereFuzzy(function ($query) use ($str) {
+            $query->orWhereFuzzy('cep', $str);
+            $query->orWhereFuzzy('rua', $str);
+            $query->orWhereFuzzy('bairro', $str);
+            $query->orWhereFuzzy('numero', $str);
+        })->first();
+        
+        if(empty($res)) {
+            return response('Endereço não encontrado.', 404);
+        }
+        
+        return response($res, 200);
+    }
 }

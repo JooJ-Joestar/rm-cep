@@ -21,4 +21,6 @@ Route::controller(EnderecoController::class)->group(function () {
     Route::patch('/endereco/update/{id}', 'update');
     Route::delete('/endereco/delete/{id}', 'delete');
     Route::get('/endereco/buscar-via-cep/{cep}', 'buscarViaCep');
+
+    Route::get('/endereco/buscar-via-qualquer-coisa/{qualquerCoisa}', 'buscarViaQualquerCoisa');
 });
