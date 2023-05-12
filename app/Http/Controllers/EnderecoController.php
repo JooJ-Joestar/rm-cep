@@ -95,7 +95,24 @@ class EnderecoController extends Controller
         return response('Endereco excluído.', 200);
     }
     
+    /**
+     * Tenta buscar o CEP na base local. Caso não localizado, realiza uma chamada para viacep.com.br/ws/01001000/json/
+     * @param int $request->cep: CEP informado na URL.
+     */
     public function buscarViaCep(Request $request) {
-        // TODO
+        $endereco = new Endereco;
+        try {
+            $res = $endereco->buscarViaCep($request->cep);
+    
+            if(empty($res)) {
+                return response('CEP não encontrado.', 404);
+            }
+            
+            return response($res, 200);
+        } catch (\Exception $e) {
+            // Por motivos de segurança e melhor UX, seria ideal tratar as mensagens de erro dessas exceções
+            // de uma forma não técnica em uma situação de uso real.
+            return response($e->getMessage(), 418);
+        }
     }
 }
